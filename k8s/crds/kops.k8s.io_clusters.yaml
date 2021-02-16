@@ -127,6 +127,11 @@ spec:
                               description: PrivateIPv4Address specifies the private
                                 IPv4 address to use for a NLB
                               type: string
+                            allocationId:
+                              description: AllocationId specifies the Elastic IP
+                                Address Allocation ID which equates to the public
+                                IPv4 address to use by a NLB
+                              type: string
                           type: object
                         type: array
                       type:

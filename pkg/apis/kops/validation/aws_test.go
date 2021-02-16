@@ -249,16 +249,18 @@ func TestLoadBalancerSubnets(t *testing.T) {
 		lbSubnets      []kops.LoadBalancerSubnetSpec
 		expected       []string
 	}{
-		{ // valid (no privateIPv4Address)
+		{ // valid (no privateIPv4Address, no allocationID)
 			clusterSubnets: []string{"a", "b", "c"},
 			lbSubnets: []kops.LoadBalancerSubnetSpec{
 				{
 					Name:               "a",
 					PrivateIPv4Address: nil,
+					AllocationId:       nil,
 				},
 				{
 					Name:               "b",
 					PrivateIPv4Address: nil,
+					AllocationId:       nil,
 				},
 			},
 		},
@@ -268,10 +270,12 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("10.0.0.10"),
+					AllocationId:       nil,
 				},
 				{
 					Name:               "b",
 					PrivateIPv4Address: nil,
+					AllocationId:       nil,
 				},
 			},
 		},
@@ -281,6 +285,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "",
 					PrivateIPv4Address: nil,
+					AllocationId:       nil,
 				},
 			},
 			expected: []string{"Required value::spec.api.loadBalancer.subnets[0].name"},
@@ -291,61 +296,102 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "d",
 					PrivateIPv4Address: nil,
+					AllocationId:       nil,
 				},
 			},
 			expected: []string{"Not found::spec.api.loadBalancer.subnets[0].name"},
 		},
-		{ // empty privateIPv4Address
+		{ // empty privateIPv4Address, no allocationID
 			clusterSubnets: []string{"a", "b", "c"},
 			lbSubnets: []kops.LoadBalancerSubnetSpec{
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String(""),
+					AllocationId:       nil,
 				},
 			},
 			expected: []string{"Required value::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
 		},
-		{ // invalid privateIPv4Address
+		{ // empty no privateIPv4Address, with allocationID
+			clusterSubnets: []string{"a", "b", "c"},
+			lbSubnets: []kops.LoadBalancerSubnetSpec{
+				{
+					Name:               "a",
+					PrivateIPv4Address: nil,
+					AllocationId:       fi.String(""),
+				},
+			},
+			expected: []string{"Required value::spec.api.loadBalancer.subnets[0].allocationID"},
+		},
+		{ // invalid privateIPv4Address, no allocationID
 			clusterSubnets: []string{"a", "b", "c"},
 			lbSubnets: []kops.LoadBalancerSubnetSpec{
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("invalidip"),
+					AllocationId:       nil,
 				},
 			},
 			expected: []string{"Invalid value::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
 		},
-		{ // privateIPv4Address not matching subnet cidr
+		{ // privateIPv4Address not matching subnet cidr, no allocationID
 			clusterSubnets: []string{"a", "b", "c"},
 			lbSubnets: []kops.LoadBalancerSubnetSpec{
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("11.0.0.10"),
+					AllocationId:       nil,
 				},
 			},
 			expected: []string{"Invalid value::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
 		},
-		{ // invalid class
+		{ // invalid class - with privateIPv4Address, no allocationID
 			class:          fi.String(string(kops.LoadBalancerClassClassic)),
 			clusterSubnets: []string{"a", "b", "c"},
 			lbSubnets: []kops.LoadBalancerSubnetSpec{
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("10.0.0.10"),
+					AllocationId:       nil,
 				},
 			},
 			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
 		},
-		{ // invalid type
+		{ // invalid class - no privateIPv4Address, with allocationID
+			class:          fi.String(string(kops.LoadBalancerClassClassic)),
+			clusterSubnets: []string{"a", "b", "c"},
+			lbSubnets: []kops.LoadBalancerSubnetSpec{
+				{
+					Name:               "a",
+					PrivateIPv4Address: nil,
+					AllocationId:       fi.String("eipalloc-222ghi789"),
+				},
+			},
+			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].allocationID"},
+		},
+		{ // invalid type external for private IP
 			lbType:         fi.String(string(kops.LoadBalancerTypePublic)),
 			clusterSubnets: []string{"a", "b", "c"},
 			lbSubnets: []kops.LoadBalancerSubnetSpec{
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("10.0.0.10"),
+					AllocationId:       nil,
 				},
 			},
 			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
+		},
+		{ // invalid type Internal for public IP
+			lbType:         fi.String(string(kops.LoadBalancerTypeInternal)),
+			clusterSubnets: []string{"a", "b", "c"},
+			lbSubnets: []kops.LoadBalancerSubnetSpec{
+				{
+					Name:               "a",
+					PrivateIPv4Address: nil,
+					AllocationId:       fi.String("eipalloc-222ghi789"),
+				},
+			},
+			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].allocationID"},
 		},
 	}
 

@@ -241,6 +241,16 @@ func awsValidateLoadBalancerSubnets(fieldPath *field.Path, spec kops.ClusterSpec
 				allErrs = append(allErrs, field.Forbidden(fieldPath.Index(i).Child("privateIPv4Address"), "privateIPv4Address only allowed for internal NLBs"))
 			}
 		}
+
+		if subnet.AllocationId != nil {
+			if *subnet.AllocationId == "" {
+				allErrs = append(allErrs, field.Required(fieldPath.Index(i).Child("allocationId"), "allocationId can't be empty"))
+			}
+
+			if lbSpec.Class != kops.LoadBalancerClassNetwork || lbSpec.Type == kops.LoadBalancerTypeInternal {
+				allErrs = append(allErrs, field.Forbidden(fieldPath.Index(i).Child("allocationId"), "allocationId only allowed for Public NLBs"))
+			}
+		}
 	}
 
 	return allErrs
