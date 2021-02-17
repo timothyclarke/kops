@@ -97,7 +97,7 @@ func (m *MockELBV2) CreateLoadBalancer(request *elbv2.CreateLoadBalancerInput) (
 		if subnetMapping.PrivateIPv4Address != nil {
 			lbAddrs = append(lbAddrs, &elbv2.LoadBalancerAddress{PrivateIPv4Address: subnetMapping.PrivateIPv4Address})
 		}
-		if subnetMapping.AllocationID != nil {
+		if subnetMapping.AllocationId != nil {
 			lbAddrs = append(lbAddrs, &elbv2.LoadBalancerAddress{AllocationId: subnetMapping.AllocationId})
 		}
 		zones = append(zones, &elbv2.AvailabilityZone{

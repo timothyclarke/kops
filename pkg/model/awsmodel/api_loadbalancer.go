@@ -80,7 +80,7 @@ func (b *APILoadBalancerBuilder) Build(c *fi.ModelBuilderContext) error {
 						nlbSubnetMapping.PrivateIPv4Address = subnet.PrivateIPv4Address
 					}
 					if subnet.AllocationId != nil {
-						nlbSubnetMapping.AllocationId = subnet.AllocationId
+						nlbSubnetMapping.AllocationID = subnet.AllocationId
 					}
 					nlbSubnetMappings = append(nlbSubnetMappings, nlbSubnetMapping)
 					break
