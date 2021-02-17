@@ -119,6 +119,10 @@ spec:
                           description: LoadBalancerSubnetSpec provides configuration
                             for subnets used for a load balancer
                           properties:
+                            allocationId:
+                              description: AllocationID specifies the Elastic IP Allocation
+                                ID for use by a NLB
+                              type: string
                             name:
                               description: Name specifies the name of the cluster
                                 subnet
@@ -126,11 +130,6 @@ spec:
                             privateIPv4Address:
                               description: PrivateIPv4Address specifies the private
                                 IPv4 address to use for a NLB
-                              type: string
-                            allocationID:
-                              description: AllocationId specifies the Elastic IP
-                                Address Allocation ID which equates to the public
-                                IPv4 address to use by a NLB
                               type: string
                           type: object
                         type: array
