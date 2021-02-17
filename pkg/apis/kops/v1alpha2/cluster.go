@@ -386,7 +386,7 @@ type LoadBalancerSubnetSpec struct {
 	// PrivateIPv4Address specifies the private IPv4 address to use for a NLB
 	PrivateIPv4Address *string `json:"privateIPv4Address,omitempty"`
 	// AllocationID specifies the Elastic IP Allocation ID for use by a NLB
-	AllocationId *string `json:"allocationId,omitempty"`
+	AllocationID *string `json:"allocationId,omitempty"`
 }
 
 // LoadBalancerAccessSpec provides configuration details related to API LoadBalancer and its access

@@ -364,7 +364,7 @@ func (e *NetworkLoadBalancer) Find(c *fi.Context) (*NetworkLoadBalancer, error) 
 			}
 			if a.AllocationId != nil {
 				if sm.AllocationID != nil {
-					return nil, fmt.Errorf("NLB has more then one AllocationId per subnet, which is unexpected. This is a bug in kOps, please open a GitHub issue.")
+					return nil, fmt.Errorf("NLB has more then one AllocationID per subnet, which is unexpected. This is a bug in kOps, please open a GitHub issue.")
 				}
 				sm.AllocationID = a.AllocationId
 			}

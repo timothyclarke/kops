@@ -242,13 +242,13 @@ func awsValidateLoadBalancerSubnets(fieldPath *field.Path, spec kops.ClusterSpec
 			}
 		}
 
-		if subnet.AllocationId != nil {
-			if *subnet.AllocationId == "" {
-				allErrs = append(allErrs, field.Required(fieldPath.Index(i).Child("allocationId"), "allocationId can't be empty"))
+		if subnet.AllocationID != nil {
+			if *subnet.AllocationID == "" {
+				allErrs = append(allErrs, field.Required(fieldPath.Index(i).Child("allocationID"), "allocationID can't be empty"))
 			}
 
 			if lbSpec.Class != kops.LoadBalancerClassNetwork || lbSpec.Type == kops.LoadBalancerTypeInternal {
-				allErrs = append(allErrs, field.Forbidden(fieldPath.Index(i).Child("allocationId"), "allocationId only allowed for Public NLBs"))
+				allErrs = append(allErrs, field.Forbidden(fieldPath.Index(i).Child("allocationID"), "allocationID only allowed for Public NLBs"))
 			}
 		}
 	}

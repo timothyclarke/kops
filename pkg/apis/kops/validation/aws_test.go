@@ -255,12 +255,12 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: nil,
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 				{
 					Name:               "b",
 					PrivateIPv4Address: nil,
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 		},
@@ -270,12 +270,12 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("10.0.0.10"),
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 				{
 					Name:               "b",
 					PrivateIPv4Address: nil,
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 		},
@@ -285,7 +285,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "",
 					PrivateIPv4Address: nil,
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 			expected: []string{"Required value::spec.api.loadBalancer.subnets[0].name"},
@@ -296,7 +296,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "d",
 					PrivateIPv4Address: nil,
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 			expected: []string{"Not found::spec.api.loadBalancer.subnets[0].name"},
@@ -307,7 +307,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String(""),
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 			expected: []string{"Required value::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
@@ -318,7 +318,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: nil,
-					AllocationId:       fi.String(""),
+					AllocationID:       fi.String(""),
 				},
 			},
 			expected: []string{"Required value::spec.api.loadBalancer.subnets[0].allocationID"},
@@ -329,7 +329,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("invalidip"),
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 			expected: []string{"Invalid value::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
@@ -340,7 +340,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("11.0.0.10"),
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 			expected: []string{"Invalid value::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
@@ -352,7 +352,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("10.0.0.10"),
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
@@ -364,7 +364,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: nil,
-					AllocationId:       fi.String("eipalloc-222ghi789"),
+					AllocationID:       fi.String("eipalloc-222ghi789"),
 				},
 			},
 			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].allocationID"},
@@ -376,7 +376,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: fi.String("10.0.0.10"),
-					AllocationId:       nil,
+					AllocationID:       nil,
 				},
 			},
 			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].privateIPv4Address"},
@@ -388,7 +388,7 @@ func TestLoadBalancerSubnets(t *testing.T) {
 				{
 					Name:               "a",
 					PrivateIPv4Address: nil,
-					AllocationId:       fi.String("eipalloc-222ghi789"),
+					AllocationID:       fi.String("eipalloc-222ghi789"),
 				},
 			},
 			expected: []string{"Forbidden::spec.api.loadBalancer.subnets[0].allocationID"},
