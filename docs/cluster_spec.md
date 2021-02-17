@@ -137,7 +137,7 @@ spec:
 
 The specified IPv4 addresses must be part of the subnets CIDR. They can not be changed after initial deployment.
 
-If the `type` is `Public` and the `class` is `Network`, you can also specify an Elastic IP AllocationId to bind a fixed public IP address per subnet. Pleae note only IPv4 addresses have been tested:
+If the `type` is `Public` and the `class` is `Network`, you can also specify an Elastic IP allocationID to bind a fixed public IP address per subnet. Pleae note only IPv4 addresses have been tested:
 ```yaml
 spec:
   api:
@@ -145,7 +145,7 @@ spec:
       type: Public
       subnets:
         - name: subnet-a
-          AllocationId: eipalloc-222ghi789
+          allocationID: eipalloc-222ghi789
 ```
 
 The specified Allocation ID's must already be created manually or external infrastructure as code, eg Terraform.
