@@ -767,6 +767,7 @@ func (_ *NetworkLoadBalancer) RenderTerraform(t *terraform.TerraformTarget, a, e
 	for _, subnetMapping := range e.SubnetMappings {
 		nlbTF.SubnetMappings = append(nlbTF.SubnetMappings, terraformNetworkLoadBalancerSubnetMapping{
 			Subnet:             subnetMapping.Subnet.TerraformLink(),
+			AllocationID:       subnetMapping.AllocationID,
 			PrivateIPv4Address: subnetMapping.PrivateIPv4Address,
 		})
 	}
@@ -864,6 +865,7 @@ func (_ *NetworkLoadBalancer) RenderCloudformation(t *cloudformation.Cloudformat
 	for _, subnetMapping := range e.SubnetMappings {
 		nlbCF.SubnetMappings = append(nlbCF.SubnetMappings, &cloudformationSubnetMapping{
 			Subnet:             subnetMapping.Subnet.CloudformationLink(),
+			AllocationId:       subnetMapping.AllocationID,
 			PrivateIPv4Address: subnetMapping.PrivateIPv4Address,
 		})
 	}

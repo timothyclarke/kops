@@ -26,7 +26,7 @@ type SubnetMapping struct {
 
 	// PrivateIPv4Address only valid for NLBs
 	PrivateIPv4Address *string
-	// AllocationId only valid for NLBs
+	// AllocationID only valid for NLBs
 	AllocationID *string
 }
 
